@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "name": "Easy DA",
+    "version": "0.1.0",
+    "description": "Easily see DA",
+    "content_scripts": [
+        {
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "https://vtop.vit.ac.in/vtop/initialProcess"
+            ]
+        }
+    ]
+}
