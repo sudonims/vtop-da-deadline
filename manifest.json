@@ -17,8 +17,9 @@
         "default_popup": "popup.html"
     },
     "permissions": [
+        "storage",
         "cookies",
-        "https://vtop.vit.ac.in/vtop"
+        "https://vtop.vit.ac.in/vtop/*"
     ],
     "background": {
         "scripts": ["background.js"],
