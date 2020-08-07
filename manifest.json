@@ -12,5 +12,16 @@
                 "https://vtop.vit.ac.in/vtop/initialProcess"
             ]
         }
-    ]
+    ],
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "cookies",
+        "https://vtop.vit.ac.in/vtop"
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    }
 }
