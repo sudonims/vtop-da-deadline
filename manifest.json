@@ -5,6 +5,7 @@
     "description": "Easily see DA",
     "content_scripts": [
         {
+            "run_at":"document_start",
             "js": [
                 "content.js"
             ],
@@ -20,9 +21,5 @@
         "storage",
         "cookies",
         "https://vtop.vit.ac.in/vtop/*"
-    ],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-    }
+    ]
 }
