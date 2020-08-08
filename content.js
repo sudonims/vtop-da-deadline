@@ -3,8 +3,13 @@ function find_right_due(table_inner) {
     return new Promise(function (resolve) {
         for (let i = 0; i < table_inner.children.length; i++) {
             var check = table_inner.children[i].children[6].children.length;
-            if (check == 0)
-                resolve(table_inner.children[i].children[4].children[0].innerHTML);
+            if (check == 0){
+                var dwnld = table_inner.children[i].children[5].children.length;
+                resolve({ 
+                    due:table_inner.children[i].children[4].children[0].innerHTML,
+                    download: dwnld>0 ? table_inner.children[i].children[5].children[0].children[0] : document.createElement('p')
+                });
+            }
         }
         resolve('Sem done. Congo.');
     })
@@ -39,14 +44,20 @@ document.addEventListener('click', async function () {
             var doc = parser.parseFromString(data, 'text/html');
             // console.log(data)
             var table_inner = doc.getElementsByClassName('customTable')[1].children[1];
+            
             // var due_date = table_inner.children[0].children[4].children[0].innerHTML;
-            var due_date = await find_right_due(table_inner).then(data => data);
+            var due_date = await find_right_due(table_inner).then(data => {
+                // console.log(data.download);
+                return data;
+            });
             // console.log(due_date)
             // newel.innerHTML = due_date
             // table.children[i].appendChild(newel)
             // console.log('lentgh',table.children[i].children[3].children.length)
-            if (table.children[i].children[3].children.length == 0)
-                table.children[i].children[3].innerHTML += `<span style="display:inline; float:right;">${due_date}</span>`
+            if (table.children[i].children[3].children.length == 0){
+                table.children[i].children[3].innerHTML += `<span style="display:inline; float:right;">${due_date.due}</span>`
+                table.children[i].children[3].children[0].appendChild(due_date.download)
+            }
         }).catch(err => console.log(err));
 
         // var xhr = new XMLHttpRequest();

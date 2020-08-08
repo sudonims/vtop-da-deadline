@@ -2,7 +2,7 @@
     "author":"sudonims",
     "manifest_version": 2,
     "name": "Easy DA",
-    "version": "0.1.0",
+    "version": "0.4.0",
     "description": "Easily see DA",
     "content_scripts": [
         {
