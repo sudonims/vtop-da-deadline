@@ -1,3 +1,15 @@
+function find_right_due(table_inner) {
+    // node = new DOMParser(node);
+    return new Promise(function (resolve) {
+        for (let i = 0; i < table_inner.children.length; i++) {
+            var check = table_inner.children[i].children[6].children.length;
+            if (check == 0)
+                resolve(table_inner.children[i].children[4].children[0].innerHTML);
+        }
+        resolve('Sem done. Congo.');
+    })
+}
+
 document.addEventListener('click', async function () {
     // alert('hi');
     // if (!chrome.cookies) {
@@ -22,12 +34,13 @@ document.addEventListener('click', async function () {
                 'X-Requested-With': 'XMLHttpRequest'
             },
             body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}`
-        }).then(res => res.text()).then(data => {
+        }).then(res => res.text()).then(async data => {
             var parser = new DOMParser()
             var doc = parser.parseFromString(data, 'text/html');
             // console.log(data)
             var table_inner = doc.getElementsByClassName('customTable')[1].children[1];
-            var due_date = table_inner.children[0].children[4].children[0].innerHTML;
+            // var due_date = table_inner.children[0].children[4].children[0].innerHTML;
+            var due_date = await find_right_due(table_inner).then(data => data);
             // console.log(due_date)
             // newel.innerHTML = due_date
             // table.children[i].appendChild(newel)
