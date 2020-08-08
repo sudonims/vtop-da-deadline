@@ -11,7 +11,9 @@ function find_right_due(table_inner) {
                 });
             }
         }
-        resolve('Sem done. Congo.');
+        resolve({
+            
+        });
     })
 }
 
