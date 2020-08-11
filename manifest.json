@@ -2,7 +2,7 @@
     "author":"sudonims",
     "manifest_version": 2,
     "name": "Easy DA",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "description": "Easily see DA",
     "content_scripts": [
         {
@@ -19,8 +19,6 @@
         "default_popup": "popup.html"
     },
     "permissions": [
-        "storage",
-        "cookies",
         "https://vtop.vit.ac.in/vtop/*"
     ]
 }
