@@ -1,5 +1,4 @@
 function find_right_due(table_inner) {
-    // node = new DOMParser(node);
     return new Promise(function (resolve) {
         for (let i = 0; i < table_inner.children.length; i++) {
             var check = table_inner.children[i].children[6].children.length;
@@ -18,10 +17,9 @@ function find_right_due(table_inner) {
     })
 }
 
-document.addEventListener('click', async function () {
-    // Get Reg. No
-    var regNo = document.getElementsByClassName('VTopHeaderStyle')[0].children[1].innerHTML.slice(0, 9);
-    var table = document.getElementsByClassName('customTable')[0].children[0]
+async function assignments(doc) {
+    var regNo = doc.getElementsByClassName('VTopHeaderStyle')[0].children[1].innerHTML.slice(0, 9);
+    var table = doc.getElementsByClassName('customTable')[0].children[0]
 
     for (let i = 1; i < table.children.length; i++) {
         var classid = table.children[i].children[1].innerHTML;
@@ -46,16 +44,30 @@ document.addEventListener('click', async function () {
                 table.children[i].children[3].children[0].appendChild(due_date.download)
             }).catch(err => console.log(err));
         }
-
-        // var xhr = new XMLHttpRequest();
-        // xhr.open("POST","https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",true);
-        // xhr.responseType = "json";
-        // // xhr.setRequestHeader('Cookie',`loginUserType=vtopuser; JSESSIONID=${result.cookie_}; _ga=GA1.3.723634682.1596111927; SERVERID=s1`)
-        // var a = table.children[i].children[1].innerHTML;
-        // xhr.send(`authorizedID=18BCI0197&x=${new Date().toGMTString()}&classid=${a}`)
-        // xhr.onreadystatechange = function() {
-        //     var response_link = xhr.response;
-        //     console.log(a,response_link);
-        // }
     }
+}
+
+document.addEventListener('click', async function () {
+    // Get Reg. No
+    var check;
+    try {
+        if(typeof(check = document.getElementsByTagName('form')[0].getAttribute('id')) != undefined) {
+            if(check && check === "digitalAssignment")
+                assignments(document);
+        }
+    } catch(e) {
+        console.log(e.message);
+    }
+
+    
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("POST","https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",true);
+    // xhr.responseType = "json";
+    // // xhr.setRequestHeader('Cookie',`loginUserType=vtopuser; JSESSIONID=${result.cookie_}; _ga=GA1.3.723634682.1596111927; SERVERID=s1`)
+    // var a = table.children[i].children[1].innerHTML;
+    // xhr.send(`authorizedID=18BCI0197&x=${new Date().toGMTString()}&classid=${a}`)
+    // xhr.onreadystatechange = function() {
+    //     var response_link = xhr.response;
+    //     console.log(a,response_link);
+    // }
 })
