@@ -48,7 +48,6 @@ async function assignments(doc) {
 }
 
 document.addEventListener('click', async function () {
-    // Get Reg. No
     var check;
     try {
         if(typeof(check = document.getElementsByTagName('form')[0].getAttribute('id')) != undefined) {

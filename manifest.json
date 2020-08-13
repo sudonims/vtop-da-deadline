@@ -1,7 +1,7 @@
 {
     "author":"sudonims",
     "manifest_version": 2,
-    "name": "Easy DA",
+    "name": "ExVTOP (Extended VTOP)",
     "version": "0.5.0",
     "description": "Easily see DA",
     "content_scripts": [
