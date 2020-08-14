@@ -1,17 +1,21 @@
 ## Installation
-1) Go to <a href="chrome://extensions"> Chrome Extensions </a>
-2) Turn on developer mode on upper right corner
+1. Go to <a href="chrome://extensions"> Chrome Extensions </a>
+
+2. Turn on developer mode on upper right corner
 
 ![Turn Dev](https://i.ibb.co/SV7dZMS/turnDev.png)
 
-3) Reload/refresh the chrome://extensions page
-4) Download the latest .crx file from the <a href="https://github.com/sudonims/vtop-da-deadline/releases"> Releases </a>
-5) Ignore the warnings.
-6) Drag the downloaded file to the extensions page
+3. Reload/refresh the chrome://extensions page
 
-![Drag CRX](https://i.ibb.co/f196VWC/dragcrx.png)
+4. Download the latest Source code zip from <a href="https://github.com//sudonims/vtop-da-deadline/archive/master.zip"> Here </a>
 
-7) Hit Accept.
+5. Unzip the downloaded file.
+
+6. Click on the "Load Unpacked" button in extensions page on upper left corner (can be seen in step 2 image)
+
+7. Select the extracted folder.
+
+8. Done
 
 
 ## How to use
