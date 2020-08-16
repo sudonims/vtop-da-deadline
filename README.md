@@ -1,32 +1,20 @@
 ## Installation
-1. Go to <a href="chrome://extensions"> Chrome Extensions </a>
 
-2. Turn on developer mode on upper right corner
+-   Go to [chrome://extensions](chrome://extensions) - Chrome Extensions
+-   Turn on developer mode from the upper right corner
 
 ![Turn Dev](https://i.ibb.co/SV7dZMS/turnDev.png)
 
-3. Reload/refresh the chrome://extensions page
+-   Download the latest release from releases page or [click here](https://github.com//sudonims/vtop-da-deadline/archive/master.zip)
+-   Unzip the downloaded file.
+-   Click on the "Load Unpacked" in extensions page on upper left corner (can be seen in step 2 image)
+-   Select the extracted folder.
+-   Turn off developer mode _(Recommended - Protects from malicious extensions)_
 
-4. Download the latest Source code zip from <a href="https://github.com//sudonims/vtop-da-deadline/archive/master.zip"> Here </a>
+## Usage
 
-5. Unzip the downloaded file.
+Navigate to DA page on vtop and select Semester - Check the due dates. ✌🏻😎
 
-6. Click on the "Load Unpacked" button in extensions page on upper left corner (can be seen in step 2 image)
-
-7. Select the extracted folder.
-
-8. Done
-
-
-## How to use
-1) Go to DA upload section and select the semester.
-2) Once loaded, simple click anywhere on the screen and the upcoming DAs' due dates would be shown.
-3) Cheers !!
-
-```
-PS: When uploading DA, just let it load first (Click anywhere to get the complete list), 
-    once loaded then proceed to upload. It's a bug I'm trying to resolve.
-```
 ## Example
 
 ![Example](https://i.ibb.co/3zWbR2w/Screenshot-from-2020-08-13-22-11-58.png)
