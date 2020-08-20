@@ -13,8 +13,8 @@
 
 ## Usage
 
-Navigate to DA page on vtop and select Semester - Check the due dates. ✌🏻😎
-
+1) Navigate to DA page on vtop and select Semester - Check the due dates. ✌🏻😎
+    Note:let it load first then go to upload the DA...
 ## Example
 
 ![Example](https://i.ibb.co/3zWbR2w/Screenshot-from-2020-08-13-22-11-58.png)
