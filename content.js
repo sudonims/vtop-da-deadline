@@ -69,142 +69,144 @@ async function assignments() {
     var regNo = document.getElementById("authorizedIDX").value;
     var table = document.getElementsByClassName("customTable")[0].children[0];
     var now_ = new Date().getTime();
-    var script = document.createElement("script");
+    //     var script = document.createElement("script");
 
-    script.text = `
-    /*<![CDATA[*/
+    //     script.text = `
+    //     /*<![CDATA[*/
 
+    //     async function custom_submit_by_me(classid, mode, index) {
+    //         var a = await doDAssignmentProcess(classid, mode, index).then(function(data) {
+    //             return data;
+    //         });
+    //         console.log(a);
+    //         if (a === "okay") {
+    //           doSaveDigitalAssignment(classid, mode, index);
+    //         } else {
+    //           alert("Failed. Try normal method");
+    //         }
+    //     }
 
-    async function custom_submit_by_me(classid, mode, index) {
-        var a = await doDAssignmentProcess(classid, mode, index).then(function(data) {
-            return data;
-        });
-        console.log(a);
-        if (a === "okay") {
-          doSaveDigitalAssignment(classid, mode, index);
-        } else {
-          alert("Failed. Try normal method");
-        }
+    //     function doDAssignmentProcess(classId, mode, index) {
+    //         var myform = document.getElementById("daUpload"+index);
+    //         var fd = new FormData(myform);
+
+    //         // $
+    //         //         .blockUI({
+
+    //         //             message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
+    //         //         });
+
+    //         var authorizedID = "${regNo}";
+    //         var now = new Date();
+    //         params = "authorizedID=" + authorizedID + "&x="
+    //                 + now.toUTCString() + "&classId=" + classId + "&mode="
+    //                 + mode;
+
+    //         return new Promise(function(resolve) {
+    //             $.ajax({
+    //                 url : "examinations/processDigitalAssignmentUpload",
+    //                 type : "POST",
+    //                 data : params,
+
+    //                 success : function(response) {
+    //                     // $.unblockUI();
+    //                     resolve("okay");
+    //                 }
+
+    //             });
+    //         })
+    //     }
+
+    //     function reload(semesterSubId) {
+
+    //         var myform = document.getElementById("daUpload");
+    //         var fd = new FormData(myform);
+
+    //         // $
+    //         //         .blockUI({
+
+    //         //             message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
+    //         //         });
+
+    //         var authorizedID = document.getElementById("authorizedID").value;
+    //         var now = new Date();
+    //         params = "authorizedID=" + authorizedID + "&x="
+    //                 + now.toUTCString() + "&semesterSubId=" + semesterSubId;
+
+    //         $.ajax({
+    //             url : "examinations/doDigitalAssignment",
+    //             type : "POST",
+    //             data : params,
+
+    //             success : function(response) {
+    //                 // $.unblockUI();
+    //                 $("#main-section").html(response);
+
+    //             }
+
+    //         });
+    //     }
+
+    //     function doSaveDigitalAssignment(classId, mCode, index) {
+    //         var myform = document.getElementById("daUpload"+index);
+    //         console.log(myform)
+    //         var fd = new FormData(myform);
+
+    //         fd.append("classId", classId);
+    //         fd.append("mCode", mCode);
+
+    //         $
+    //                 .blockUI({
+    //                     message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
+    //                 });
+    //         $.ajax({
+    //             url : "examinations/doDAssignmentUploadMethod",
+    //             type : "POST",
+    //             data : fd,
+    //             cache : false,
+    //             processData : false,
+    //             contentType : false,
+    //             success : function(response) {
+    //                 $.unblockUI();
+
+    //                 alert("Done")
+    //             }
+
+    //         });
+    //     }
+
+    //     function doCancelAssgnUpload(classId) {
+    //         var authorizedID = "${regNo}"
+    //         var now = new Date();
+    //         params = "authorizedID=" + authorizedID + "&x="
+    //                 + now.toUTCString() + "&classId=" + classId;
+    //         $
+    //                 .blockUI({
+
+    //                     message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
+    //                 });
+
+    //         $.ajax({
+    //             url : "examinations/processDigitalAssignment",
+    //             type : "POST",
+    //             data : params,
+    //             success : function(response) {
+    //                 $.unblockUI();
+
+    //                 $("#main-section").html(response);
+
+    //             }
+
+    //         });
+    //     }
+
+    //     /*]]>*/
+    // `;
+    //     document.getElementById("main-section").appendChild(script);
+    var dis = document.getElementsByClassName("icon-button");
+    for (let i = 0; i < dis.length; i++) {
+      dis[i].disabled = true;
     }
-    
-    function doDAssignmentProcess(classId, mode, index) {
-        var myform = document.getElementById("daUpload"+index);
-        var fd = new FormData(myform);
-
-        // $
-        //         .blockUI({
-
-        //             message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
-        //         });
-
-        var authorizedID = "${regNo}";
-        var now = new Date();
-        params = "authorizedID=" + authorizedID + "&x="
-                + now.toUTCString() + "&classId=" + classId + "&mode="
-                + mode;
-
-        return new Promise(function(resolve) {
-            $.ajax({
-                url : "examinations/processDigitalAssignmentUpload",
-                type : "POST",
-                data : params,
-    
-                success : function(response) {
-                    // $.unblockUI();
-                    resolve("okay");
-                }
-    
-            });
-        })
-    }
-
-    function reload(semesterSubId) {
-
-        var myform = document.getElementById("daUpload");
-        var fd = new FormData(myform);
-
-        // $
-        //         .blockUI({
-
-        //             message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
-        //         });
-
-        var authorizedID = document.getElementById("authorizedID").value;
-        var now = new Date();
-        params = "authorizedID=" + authorizedID + "&x="
-                + now.toUTCString() + "&semesterSubId=" + semesterSubId;
-
-        $.ajax({
-            url : "examinations/doDigitalAssignment",
-            type : "POST",
-            data : params,
-
-            success : function(response) {
-                // $.unblockUI();
-                $("#main-section").html(response);
-
-            }
-
-        });
-    }
-
-    function doSaveDigitalAssignment(classId, mCode, index) {
-        var myform = document.getElementById("daUpload"+index);
-        console.log(myform)
-        var fd = new FormData(myform);
-
-        fd.append("classId", classId);
-        fd.append("mCode", mCode);
-
-        
-        $
-                .blockUI({
-                    message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
-                });
-        $.ajax({
-            url : "examinations/doDAssignmentUploadMethod",
-            type : "POST",
-            data : fd,
-            cache : false,
-            processData : false,
-            contentType : false,
-            success : function(response) {
-                $.unblockUI();
-
-                alert("Done")
-            }
-
-        });
-    }
-
-    function doCancelAssgnUpload(classId) {
-        var authorizedID = "${regNo}"
-        var now = new Date();
-        params = "authorizedID=" + authorizedID + "&x="
-                + now.toUTCString() + "&classId=" + classId;
-        $
-                .blockUI({
-
-                    message : '<img src="assets/img/482.GIF"> loading... Just a moment...'
-                });
-
-        $.ajax({
-            url : "examinations/processDigitalAssignment",
-            type : "POST",
-            data : params,
-            success : function(response) {
-                $.unblockUI();
-
-                $("#main-section").html(response);
-
-            }
-
-        });
-    }
-
-    /*]]>*/
-`;
-    document.getElementById("main-section").appendChild(script);
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
       if (table.children[i].children[3].children.length != 1) {
@@ -240,16 +242,19 @@ async function assignments() {
             table.children[i].children[3].children[0].appendChild(
               due_date.download
             );
-            var extra_td = await generateSubmit(
-              classid,
-              due_date.code.code,
-              due_date.code.code2,
-              i
-            ).then((data) => data);
-            table.children[i].appendChild(extra_td);
+            // var extra_td = await generateSubmit(
+            //   classid,
+            //   due_date.code.code,
+            //   due_date.code.code2,
+            //   i
+            // ).then((data) => data);
+            // table.children[i].appendChild(extra_td);
           })
           .catch((err) => console.log(err));
       }
+    }
+    for (let i = 0; i < dis.length; i++) {
+      dis[i].disabled = false;
     }
   } catch (err) {
     console.log(err);
