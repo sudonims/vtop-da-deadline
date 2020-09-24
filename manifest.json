@@ -1,25 +1,19 @@
 {
-    "author": "sudonims",
-    "manifest_version": 2,
-    "name": "ExVTOP (Extended VTOP)",
-    "version": "0.6.0",
-    "description": "Easily see DA",
-    "content_scripts": [
-        {
-            "run_at": "document_start",
-            "js": ["content.js"],
-            "matches": ["https://vtop.vit.ac.in/vtop/initialProcess"]
-        }
-    ],
-    "permissions": [
-        "webRequest",
-        "webRequestBlocking",
-        "tabs",
-        "webNavigation",
-        "https://vtop.vit.ac.in/vtop/*"
-    ],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": true
+  "author": "sudonims",
+  "manifest_version": 2,
+  "name": "ExVTOP (Extended VTOP)",
+  "version": "0.7.0",
+  "description": "Easily see DA",
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "js": ["content.js"],
+      "matches": ["https://vtop.vit.ac.in/vtop/initialProcess"]
     }
+  ],
+  "permissions": ["webRequest", "tabs", "https://vtop.vit.ac.in/vtop/*"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
 }
