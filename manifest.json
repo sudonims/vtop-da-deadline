@@ -11,9 +11,21 @@
       "matches": ["https://vtop.vit.ac.in/vtop/initialProcess"]
     }
   ],
-  "permissions": ["webRequest", "tabs", "https://vtop.vit.ac.in/vtop/*"],
+  "permissions": [
+    "webRequest",
+    "tabs",
+    "https://vtop.vit.ac.in/vtop/*",
+    "identity"
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": true
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "oauth2": {
+    "client_id": "<KEY>.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/calendar"]
   }
 }
