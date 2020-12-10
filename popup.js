@@ -1,11 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("lol").addEventListener("click", function () {
-    signin();
+  var pause = document.getElementById("pause");
+  var resume = document.getElementById("resume");
+
+  chrome.storage.sync.get(["pause"], function (data) {
+    if (data.pause) {
+      pause.style.display = "none";
+      resume.style.display = "visible";
+    } else {
+      pause.style.display = "visible";
+      resume.style.display = "none";
+    }
+  });
+
+  pause.addEventListener("click", function () {
+    chrome.storage.sync.set({ pause: true }, function () {
+      chrome.notifications.create("Paused", {
+        type: "basic",
+        iconUrl: "logo.png",
+        title: "Paused",
+        message: "Extension Paused",
+      });
+    });
+  });
+
+  resume.addEventListener("click", function () {
+    chrome.storage.sync.set({ pause: false }, function () {
+      chrome.notifications.create("Resumed", {
+        type: "basic",
+        iconUrl: "logo.png",
+        title: "Resumed",
+        message: "Extension Resumed",
+      });
+    });
   });
 });
-
-function signin() {
-  chrome.identity.getAuthToken({ interactive: true }, function (token) {
-    console.log(token);
-  });
-}

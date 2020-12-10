@@ -2,7 +2,7 @@
   "author": "sudonims",
   "manifest_version": 2,
   "name": "ExVTOP (Extended VTOP)",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Easily see DA",
   "content_scripts": [
     {
@@ -15,7 +15,8 @@
     "webRequest",
     "tabs",
     "https://vtop.vit.ac.in/vtop/*",
-    "identity"
+    "storage",
+    "notifications"
   ],
   "background": {
     "scripts": ["background.js"],
@@ -24,8 +25,7 @@
   "browser_action": {
     "default_popup": "popup.html"
   },
-  "oauth2": {
-    "client_id": "<KEY>.apps.googleusercontent.com",
-    "scopes": ["https://www.googleapis.com/auth/calendar"]
+  "icons": {
+    "48": "logo.png"
   }
 }
