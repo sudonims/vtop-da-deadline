@@ -1,3 +1,17 @@
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", change_navbar);
+} else {
+  change_navbar();
+}
+
+function change_navbar() {
+  var coursePage = document.createElement("span");
+  coursePage.innerHTML = `<a style="color:white;" href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()">Course Page</a>
+  <a style="color:white;" href="javascript:loadmydiv('examinations/StudentDA')" id="EXM0017" class="btnItem" onclick="toggleButtonMenuItem()"></i>DA Upload</a>
+  <a style="color:white;" href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="ACD0152" class="btnItem" onclick="toggleButtonMenuItem()">Class Messages</a>`;
+  document.getElementsByClassName("navbar-brand")[0].appendChild(coursePage);
+}
+
 function find_right_due(table_inner) {
   return new Promise((resolve) => {
     for (let i = 0; i < table_inner.children.length; i++) {
