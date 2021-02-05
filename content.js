@@ -1,8 +1,8 @@
 function find_right_due(table_inner) {
   return new Promise((resolve) => {
     for (let i = 0; i < table_inner.children.length; i++) {
-      var check = table_inner.children[i].children[6].children.length;
-      if (check == 0) {
+      var check = table_inner.children[i].children[6].children[0].innerHTML;
+      if (check === "") {
         var dwnld = table_inner.children[i].children[5].children.length;
         resolve({
           due: table_inner.children[i].children[4].children[0].innerHTML,
