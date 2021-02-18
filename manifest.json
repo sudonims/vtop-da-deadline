@@ -8,7 +8,7 @@
     {
       "run_at": "document_start",
       "js": ["content.js"],
-      "matches": ["https://vtop.vit.ac.in/vtop/initialProcess"]
+      "matches": ["https://vtop.vit.ac.in/vtop/*"]
     }
   ],
   "permissions": [
@@ -17,7 +17,8 @@
     "https://vtop.vit.ac.in/vtop/*",
     "storage",
     "notifications",
-    "identity"
+    "identity",
+    "activeTab"
   ],
   "background": {
     "scripts": ["background.js"],

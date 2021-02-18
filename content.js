@@ -93,7 +93,8 @@ async function assignments() {
 // Message passing between background and content
 // This removes the need for clicking in body to see due dates as it checks URL requests to find whether user has visited DA page.
 var loaded = false;
-chrome.runtime.onMessage.addListener(function (request) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log(request);
   if (request.urlVisited && !loaded) {
     loaded = true;
     chrome.storage.sync.get(["pause"], function (data) {
@@ -101,5 +102,28 @@ chrome.runtime.onMessage.addListener(function (request) {
         assignments();
       }
     });
+
+    var btn = document.createElement("button");
+    btn.innerHTML = "Sync with Google Calendar";
+    var head = document.getElementsByClassName("box-header with-border")[0];
+    head.appendChild(btn);
+    btn.addEventListener("click", function () {
+      chrome.runtime.sendMessage({ sync: true }, function () {
+        console.log("Syncing");
+      });
+    });
   }
+
+  if (request.sendDOM) {
+    console.log(document.documentElement);
+    sendResponse(document.documentElement);
+  }
+
+  return true;
 });
+
+// chrome.runtime.onMessage.addListener(function (
+//   request,
+//   sender,
+//   sendResponse
+// ) {});

@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     chrome.identity.getAuthToken({ interactive: true }, async function (token) {
       console.log(token);
       await fetch(
-        "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=<API_KEY>",
+        "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
         {
           method: "POST",
           headers: {
