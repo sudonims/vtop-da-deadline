@@ -16,7 +16,8 @@
     "tabs",
     "https://vtop.vit.ac.in/vtop/*",
     "storage",
-    "notifications"
+    "notifications",
+    "identity"
   ],
   "background": {
     "scripts": ["background.js"],
@@ -27,5 +28,9 @@
   },
   "icons": {
     "48": "logo.png"
+  },
+  "oauth2": {
+    "client_id": "114911086645-07okmuvn3gpsl5tag522okm1lj6sta0j.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/calendar"]
   }
 }

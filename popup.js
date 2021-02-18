@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   var pause = document.getElementById("pause");
   var resume = document.getElementById("resume");
+  var signin = document.getElementById("signin");
 
   chrome.storage.sync.get(["pause"], function (data) {
     if (data.pause) {
@@ -31,6 +32,24 @@ document.addEventListener("DOMContentLoaded", function () {
         title: "Resumed",
         message: "Extension Resumed",
       });
+    });
+  });
+
+  signin.addEventListener("click", function () {
+    chrome.identity.getAuthToken({ interactive: true }, async function (token) {
+      console.log(token);
+      await fetch(
+        "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=<API_KEY>",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + token,
+            Accept: "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     });
   });
 });
