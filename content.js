@@ -90,11 +90,16 @@ async function assignments() {
   }
 }
 
+function sendingResponse() {
+  return new Promise((resolve) => {
+    resolve(document.documentElement);
+  });
+}
+
 // Message passing between background and content
 // This removes the need for clicking in body to see due dates as it checks URL requests to find whether user has visited DA page.
 var loaded = false;
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(request);
   if (request.urlVisited && !loaded) {
     loaded = true;
     chrome.storage.sync.get(["pause"], function (data) {
@@ -108,22 +113,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var head = document.getElementsByClassName("box-header with-border")[0];
     head.appendChild(btn);
     btn.addEventListener("click", function () {
-      chrome.runtime.sendMessage({ sync: true }, function () {
+      var DOM = document.body.outerHTML;
+      chrome.runtime.sendMessage({ sync: true, DOM }, function () {
         console.log("Syncing");
       });
     });
   }
 
-  if (request.sendDOM) {
-    console.log(document.documentElement);
-    sendResponse(document.documentElement);
-  }
-
   return true;
 });
 
-// chrome.runtime.onMessage.addListener(function (
+// chrome.runtime.onMessage.addListener(async function (
 //   request,
 //   sender,
 //   sendResponse
-// ) {});
+// ) {
+//   if (request.sendDOM) {
+//     console.log(sender);
+//     await sendingResponse().then((res) => sendResponse(res));
+//   }
+//   return true;
+// });

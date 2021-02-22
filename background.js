@@ -49,7 +49,7 @@ function calendar(date, event) {
   });
 }
 
-function find_right_due(table_inner) {
+function find_right_due(table_inner, DOM) {
   return new Promise((resolve) => {
     for (let i = 0; i < table_inner.children.length; i++) {
       var check = table_inner.children[i].children[6].children[0].innerHTML;
@@ -60,29 +60,32 @@ function find_right_due(table_inner) {
           download:
             dwnld > 0
               ? table_inner.children[i].children[5].children[0].children[0]
-              : document.createElement("div"),
+              : DOM.createElement("div"),
         });
       }
     }
     resolve({
       due: "Nothing Left. Cheers!",
-      download: document.createElement("div"),
+      download: DOM.createElement("div"),
     });
   });
 }
 
-async function assignments(document) {
+async function assignments(DOM) {
   try {
-    var regNo = document.getElementById("authorizedIDX").value;
-    var table = document.getElementsByClassName("customTable")[0].children[0];
+    var regNo = DOM.getElementById("authorizedIDX").value;
+    var table = DOM.getElementsByClassName("customTable")[0].children[0];
+    console.log(regNo, table);
     var now_ = new Date().getTime();
-    // var dis = document.getElementsByClassName("icon-button");
+    // var dis = DOM.getElementsByClassName("icon-button");
     // for (let i = 0; i < dis.length; i++) {
     //   dis[i].disabled = true;
     // }
+    console.log(table.children.length);
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
-      if (table.children[i].children[3].children.length != 1) {
+      console.log(classid);
+      if (/*table.children[i].children[3].children.length != */ 1) {
         await fetch(
           "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",
           {
@@ -103,9 +106,9 @@ async function assignments(document) {
             var table_inner = doc.getElementsByClassName("customTable")[1]
               .children[1];
 
-            var due_date = await find_right_due(table_inner).then(
-              (data) => data
-            );
+            var due_date = await find_right_due(table_inner, DOM)
+              .then((data) => data)
+              .catch((err) => console.log(err));
             // var due = new Date(due_date.due.replace(/-/g, " ")).getTime();
             // var color =
             //   (due - now_) / (3600 * 24 * 1000) <= 2 ? "red" : "green";
@@ -134,14 +137,10 @@ chrome.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   if (request.sync) {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { sendDOM: true }, function (DOM) {
-        console.log(typeof DOM, DOM);
-        assignments(DOM);
-      });
-    });
-    // await calendar("2021-02-18", "check").then(() => {
-    //   alert("Sync Done");
-    // });
+    console.log(request);
+    var parser = new DOMParser();
+    var DOM = parser.parseFromString(request.DOM, "text/html");
+    console.log("Starting", DOM);
+    assignments(DOM);
   }
 });
