@@ -5,31 +5,56 @@ if (document.readyState === "loading") {
 }
 
 function change_navbar() {
-  var coursePage = document.createElement("span");
+  var coursePage = document.createElement("div");
+  coursePage.className = "dropdown";
   // coursePage.innerHTML = `<a style="color:89CFFO;" href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()">Course Page</a>
   // <a style="color:white;" href="javascript:loadmydiv('examinations/StudentDA')" id="EXM0017" class="btnItem" onclick="toggleButtonMenuItem()"></i>DA Upload</a>
   // <a style="color:white;" href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="ACD0152" class="btnItem" onclick="toggleButtonMenuItem()">Class Messages</a>`;
-  coursePage.innerHTML = `<p style="text-align: center;background-color: #00EDFD">Impo Shit</p><div style="margin-top:5px"></div><div class="dropdown">	 <a class="btn btn-default btn-group-justified dropdown-toggle" type="button" style="margin-top:5px"><span class="fa fa-graduation-cap" style="margin-top:5px"></span></a> <div class="dropdown-menu btnList "><div class="panel-group" role="tablist" id="BtnAccordian17"><div class="panel panel-default"><div class="panel-heading"> <h4 class="disabled text-capitalize text-center menu-header">&nbsp;&nbsp;Important shit</h4> </div> <div id="BtnBody21130"><div class="panel-body"> <ul class="nav">
-			
-  <li><a href="javascript:loadmydiv('examinations/StudentDA')" id="CNTXXX1" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;DA upload</a></li>
-  <li><a href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="CNTXXX1" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;Course Page</a></li>
+  coursePage.innerHTML = `
+        <a class="btn btn-default btn-group-justified dropdown-toggle" type="button" style="margin-top:5px">
+          <span class="fa fa-graduation-cap" style="margin-top:5px"></span>
+        </a> <div class="dropdown-menu btnList ">
+        <div class="panel-group" role="tablist" id="BtnAccordian17">
+        <div class="panel panel-default"><div class="panel-heading"> 
+          <h4 class="disabled text-capitalize text-center menu-header">&nbsp;&nbsp;Quick Links</h4> 
+        </div> <div id="BtnBody21130">
+        <div class="panel-body"> 
+          <ul class="nav">
+            <li>
+              <a href="javascript:loadmydiv('examinations/StudentDA')" id="CNTXXX1" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;DA upload</a>
+            </li>
+            <li>
+              <a href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-dot-circle-o"></i>&nbsp;&nbsp;Course Page</a>
+            </li>
+            <li>
+              <a href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="CNTXXX3" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;Class Message</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div></div></div>
+  <p style="text-align: center;background-color: #00EDFD">Quick IMP Links Up</p>`;
 
-  <li><a href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="CNTXXX3" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;Class Message</a></li></ul></div></div></div></div></div></div>`;
+  var dropdown = document.getElementsByClassName(
+    "btn-group-vertical dropright"
+  );
 
-  document.getElementsByClassName("btn-group-vertical dropright")[0].appendChild(coursePage);
+  dropdown[0].insertBefore(coursePage, dropdown[0].children[0]);
 }
 
 function find_right_due(table_inner) {
   return new Promise((resolve) => {
-    extensionizr.com
+    extensionizr.com;
     for (let i = 0; i < table_inner.children.length; i++) {
       var check = table_inner.children[i].children[6].children[0].innerHTML;
       if (check === "") {
         var dwnld = table_inner.children[i].children[5].children.length;
         resolve({
           due: table_inner.children[i].children[4].children[0].innerHTML,
-          download: dwnld > 0 ?
-            table_inner.children[i].children[5].children[0].children[0] : document.createElement("div"),
+          download:
+            dwnld > 0
+              ? table_inner.children[i].children[5].children[0].children[0]
+              : document.createElement("div"),
         });
       }
     }
@@ -53,15 +78,17 @@ async function assignments() {
       var classid = table.children[i].children[1].innerHTML;
       if (table.children[i].children[3].children.length != 1) {
         await fetch(
-            "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "X-Requested-With": "XMLHttpRequest",
-              },
-              body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}`,
-            }
-          )
+          "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/x-www-form-urlencoded; charset=UTF-8",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}`,
+          }
+        )
           .then((res) => res.text())
           .then(async (data) => {
             var parser = new DOMParser();
@@ -118,12 +145,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     head.appendChild(btn);
     btn.addEventListener("click", function () {
       var DOM = document.body.outerHTML;
-      chrome.runtime.sendMessage({
-        sync: true,
-        DOM
-      }, function () {
-        console.log("Syncing");
-      });
+      chrome.runtime.sendMessage(
+        {
+          sync: true,
+          DOM,
+        },
+        function () {
+          console.log("Syncing");
+        }
+      );
     });
   }
 
