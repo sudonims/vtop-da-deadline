@@ -6,7 +6,7 @@ if (document.readyState === "loading") {
 
 function change_navbar() {
   var coursePage = document.createElement("span");
-  // coursePage.innerHTML = `<a style="color:89CFFO;" href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()">Course Page</a>
+  // coursePage.innerHTML = `<a style="color:2980B9;" href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()">Course Page</a>
   // <a style="color:white;" href="javascript:loadmydiv('examinations/StudentDA')" id="EXM0017" class="btnItem" onclick="toggleButtonMenuItem()"></i>DA Upload</a>
   // <a style="color:white;" href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="ACD0152" class="btnItem" onclick="toggleButtonMenuItem()">Class Messages</a>`;
   coursePage.innerHTML = `<p style="text-align: center;background-color: #00EDFD">Impo Shit</p><div style="margin-top:5px"></div><div class="dropdown">	 <a class="btn btn-default btn-group-justified dropdown-toggle" type="button" style="margin-top:5px"><span class="fa fa-graduation-cap" style="margin-top:5px"></span></a> <div class="dropdown-menu btnList "><div class="panel-group" role="tablist" id="BtnAccordian17"><div class="panel panel-default"><div class="panel-heading"> <h4 class="disabled text-capitalize text-center menu-header">&nbsp;&nbsp;Important shit</h4> </div> <div id="BtnBody21130"><div class="panel-body"> <ul class="nav">
