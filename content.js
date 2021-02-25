@@ -1,15 +1,8 @@
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", change_navbar);
-} else {
-  change_navbar();
-}
+document.addEventListener("DOMContentLoaded", change_navbar);
 
 function change_navbar() {
   var coursePage = document.createElement("div");
   coursePage.className = "dropdown";
-  // coursePage.innerHTML = `<a style="color:89CFFO;" href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()">Course Page</a>
-  // <a style="color:white;" href="javascript:loadmydiv('examinations/StudentDA')" id="EXM0017" class="btnItem" onclick="toggleButtonMenuItem()"></i>DA Upload</a>
-  // <a style="color:white;" href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="ACD0152" class="btnItem" onclick="toggleButtonMenuItem()">Class Messages</a>`;
   coursePage.innerHTML = `
         <a class="btn btn-default btn-group-justified dropdown-toggle" type="button" style="margin-top:5px">
           <span class="fa fa-graduation-cap" style="margin-top:5px"></span>
@@ -144,30 +137,20 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var head = document.getElementsByClassName("box-header with-border")[0];
     head.appendChild(btn);
     btn.addEventListener("click", function () {
-      var DOM = document.body.outerHTML;
-      chrome.runtime.sendMessage(
-        {
-          sync: true,
-          DOM,
-        },
-        function () {
-          console.log("Syncing");
-        }
-      );
+      // var DOM = document.body.outerHTML;
+      // chrome.runtime.sendMessage(
+      //   {
+      //     sync: true,
+      //     DOM,
+      //   },
+      //   function () {
+      //     console.log("Syncing");
+      //   }
+      // );
+
+      alert("Still in development. Coming soon. Check GitHub repo for more");
     });
   }
 
   return true;
 });
-
-// chrome.runtime.onMessage.addListener(async function (
-//   request,
-//   sender,
-//   sendResponse
-// ) {
-//   if (request.sendDOM) {
-//     console.log(sender);
-//     await sendingResponse().then((res) => sendResponse(res));
-//   }
-//   return true;
-// });
