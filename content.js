@@ -37,7 +37,6 @@ function change_navbar() {
 
 function find_right_due(table_inner) {
   return new Promise((resolve) => {
-    extensionizr.com;
     for (let i = 0; i < table_inner.children.length; i++) {
       var check = table_inner.children[i].children[6].children[0].innerHTML;
       if (check === "") {
