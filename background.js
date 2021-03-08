@@ -27,6 +27,9 @@ function calendar(date, event) {
             Accept: "application/json",
           },
           body: JSON.stringify({
+            id: btoa(date + event)
+              .toLowerCase()
+              .slice(0, 8),
             end: {
               dateTime: date + "T23:59:00.000+05:30",
             },
@@ -39,7 +42,23 @@ function calendar(date, event) {
           }),
         }
       )
-        .then((res) => res.json())
+        .then(async (res) => {
+          if (res.status === 200) {
+            await chrome.storage.sync.get(["eventids"], function (data) {
+              var a = data.eventids;
+              a.push(res.json().id);
+              chrome.storage.sync.set(
+                {
+                  eventids: a,
+                },
+                () => {
+                  console.log(data.eventids);
+                }
+              );
+            });
+          }
+          return res.json();
+        })
         .then((data) => {
           resolve();
           console.log(data);
@@ -73,8 +92,10 @@ async function assignments(DOM) {
     var table = DOM.getElementsByClassName("customTable")[0].children[0];
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
-      console.log(table.children[i].children[3]);
-      table.children[i].children[3].children[0].remove();
+      console.log(table.children[i].children[3].children);
+
+      table.children[i].children[3].children.length !== 0 &&
+        table.children[i].children[3].children[0].remove();
       var desc_str =
         table.children[i].children[3].textContent.trim() +
         " " +
