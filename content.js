@@ -134,20 +134,25 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var btn = document.createElement("button");
     btn.innerHTML = "Sync with Google Calendar";
     var head = document.getElementsByClassName("box-header with-border")[0];
+    var text = document.createElement("p");
+    text.innerHTML =
+      "Please Sign In through extension dropdown before proceding.";
     head.appendChild(btn);
-    btn.addEventListener("click", function () {
-      // var DOM = document.body.outerHTML;
-      // chrome.runtime.sendMessage(
-      //   {
-      //     sync: true,
-      //     DOM,
-      //   },
-      //   function () {
-      //     console.log("Syncing");
-      //   }
-      // );
+    head.appendChild(text);
 
-      alert("Still in development. Coming soon. Check GitHub repo for more");
+    btn.addEventListener("click", function () {
+      var DOM = document.body.outerHTML;
+      chrome.runtime.sendMessage(
+        {
+          sync: true,
+          DOM,
+        },
+        function () {
+          console.log("Syncing");
+        }
+      );
+
+      // alert("Still in development. Coming soon. Check GitHub repo for more");
     });
   }
 

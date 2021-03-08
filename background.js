@@ -18,7 +18,6 @@ chrome.webRequest.onCompleted.addListener(
 function calendar(date, event) {
   return new Promise((resolve) => {
     chrome.identity.getAuthToken({ interactive: true }, async function (token) {
-      console.log(token);
       await fetch(
         "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
         {
@@ -74,7 +73,8 @@ async function assignments(DOM) {
     var table = DOM.getElementsByClassName("customTable")[0].children[0];
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
-      table.children[i].children[3].forEach((n) => n.remove());
+      console.log(table.children[i].children[3]);
+      table.children[i].children[3].children[0].remove();
       var desc_str =
         table.children[i].children[3].textContent.trim() +
         " " +

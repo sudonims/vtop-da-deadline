@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var pause = document.getElementById("pause");
   var resume = document.getElementById("resume");
   var signin = document.getElementById("signin");
+  // var signout = document.getElementById("signout");
 
   chrome.storage.sync.get(["pause"], function (data) {
     if (data.pause) {
@@ -12,6 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
       resume.style.display = "none";
     }
   });
+
+  // chrome.identity.getAuthToken({ interactive: true }, async function (token) {
+  //   if (token) {
+  //     console.log(token);
+  //     signin.style.display = "none";
+  //     signout.style.display = "visible";
+  //   } else {
+  //     signin.style.display = "visible";
+  //     signout.style.display = "none";
+  //   }
+  // });
 
   pause.addEventListener("click", function () {
     chrome.storage.sync.set({ pause: true }, function () {
@@ -36,20 +48,52 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   signin.addEventListener("click", function () {
-    chrome.identity.getAuthToken({ interactive: true }, async function (token) {
-      console.log(token);
-      await fetch(
-        "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
-        {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + token,
-            Accept: "application/json",
-          },
+    chrome.identity.getAuthToken(async function (token) {
+      if (!chrome.runtime.lastError) {
+        chrome.notifications.create("Sign In", {
+          type: "basic",
+          iconUrl: "logo.png",
+          title: "Signed In",
+          message: "Signed In",
+        });
+      } else {
+        if (chrome.runtime.lastError === "The user turned off browser signin") {
+          chrome.notifications.create("User Sign In", {
+            type: "basic",
+            iconUrl: "logo.png",
+            title: "Can't sign in",
+            message:
+              "User turned off browser signin, turn it on in settings. Google for more info",
+          });
         }
-      )
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+      }
     });
   });
+
+  // signout.addEventListener("click", function () {
+  //   chrome.identity.getAuthToken({ interactive: true }, (currentToken) => {
+  //     console.log(currentToken);
+  //     if (!chrome.runtime.lastError) {
+  //       chrome.identity.removeCachedAuthToken(
+  //         { token: currentToken },
+  //         () => {}
+  //       );
+  //     } else {
+  //       console.log(chrome.runtime.lastError);
+  //       chrome.notifications.create("Sign Out", {
+  //         type: "basic",
+  //         iconUrl: "logo.png",
+  //         title: "Signed Out",
+  //         message: "Signed Out",
+  //       });
+  //     }
+  //   });
+  // chrome.identity.launchWebAuthFlow(
+  //   {
+  //     url: "https://accounts.google.com/logout",
+  //     interactive: true,
+  //   },
+  //   function (tokenUrl) {}
+  // );
+  // });
 });
