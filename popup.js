@@ -48,8 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   signin.addEventListener("click", function () {
-    chrome.identity.getAuthToken(async function (token) {
+    chrome.identity.getAuthToken({ interactive: true }, async function (token) {
       if (!chrome.runtime.lastError) {
+        console.log(token);
         chrome.notifications.create("Sign In", {
           type: "basic",
           iconUrl: "logo.png",
@@ -57,13 +58,24 @@ document.addEventListener("DOMContentLoaded", function () {
           message: "Signed In",
         });
       } else {
-        if (chrome.runtime.lastError === "The user turned off browser signin") {
+        if (
+          chrome.runtime.lastError.message ===
+          "The user turned off browser signin"
+        ) {
           chrome.notifications.create("User Sign In", {
             type: "basic",
             iconUrl: "logo.png",
             title: "Can't sign in",
             message:
               "User turned off browser signin, turn it on in settings. Google for more info",
+          });
+        } else {
+          console.log(chrome.runtime.lastError.message);
+          chrome.notifications.create("Error", {
+            type: "basic",
+            iconUrl: "logo.png",
+            title: "Can't sign in",
+            message: "Error Occured. Send logs to github",
           });
         }
       }

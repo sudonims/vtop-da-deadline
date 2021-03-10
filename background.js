@@ -16,6 +16,24 @@ chrome.webRequest.onCompleted.addListener(
 );
 
 function calendar(date, event) {
+  var map = {
+    Jan: "01",
+    Feb: "02",
+    Mar: "03",
+    Apr: "04",
+    May: "05",
+    Jun: "06",
+    Jul: "07",
+    Aug: "08",
+    Sep: "09",
+    Sept: "09",
+    Oct: "10",
+    Nov: "11",
+    Dec: "12",
+  };
+  var tmp = date.split("-");
+  var dte = `${tmp[2]}-${map[tmp[1]]}-${tmp[0]}`;
+  console.log(date, dte);
   return new Promise((resolve) => {
     chrome.identity.getAuthToken({ interactive: true }, async function (token) {
       await fetch(
@@ -27,14 +45,11 @@ function calendar(date, event) {
             Accept: "application/json",
           },
           body: JSON.stringify({
-            id: btoa(date + event)
-              .toLowerCase()
-              .slice(0, 8),
             end: {
-              dateTime: date + "T23:59:00.000+05:30",
+              dateTime: dte + "T23:59:00.000+05:30",
             },
             start: {
-              dateTime: date + "T23:00:00.000+05:30",
+              dateTime: dte + "T23:00:00.000+05:30",
             },
             eventType: "default",
             description: event,
@@ -43,20 +58,6 @@ function calendar(date, event) {
         }
       )
         .then(async (res) => {
-          if (res.status === 200) {
-            await chrome.storage.sync.get(["eventids"], function (data) {
-              var a = data.eventids;
-              a.push(res.json().id);
-              chrome.storage.sync.set(
-                {
-                  eventids: a,
-                },
-                () => {
-                  console.log(data.eventids);
-                }
-              );
-            });
-          }
           return res.json();
         })
         .then((data) => {
@@ -123,7 +124,18 @@ async function assignments(DOM) {
           var due_date = await get_dates(table_inner)
             .then((data) => data)
             .catch((err) => console.log(err));
-          console.log(classid, due_date);
+
+          due_date.length > 0 &&
+            due_date.forEach(async (due) => {
+              await calendar(due.date, `${desc_str} ${due.name}`);
+            });
+
+          chrome.notifications.create("Done", {
+            type: "basic",
+            iconUrl: "logo.png",
+            title: "Sync done for" + classid,
+            message: classid,
+          });
         })
         .catch((err) => console.log(err));
     }
