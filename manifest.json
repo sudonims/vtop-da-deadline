@@ -2,7 +2,7 @@
   "author": "sudonims",
   "manifest_version": 2,
   "name": "ExVTOP (Extended VTOP)",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "Easily see DA",
   "content_scripts": [
     {
@@ -31,7 +31,7 @@
     "48": "logo.png"
   },
   "oauth2": {
-    "client_id": "114911086645-07okmuvn3gpsl5tag522okm1lj6sta0j.apps.googleusercontent.com",
+    "client_id": "<API_KEY>.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/calendar"]
   }
 }

@@ -1,38 +1,42 @@
 document.addEventListener("DOMContentLoaded", change_navbar);
 
 function change_navbar() {
-  var coursePage = document.createElement("div");
-  coursePage.className = "dropdown";
-  coursePage.innerHTML = `
-        <a class="btn btn-default btn-group-justified dropdown-toggle" type="button" style="margin-top:5px">
-          <span class="fa fa-graduation-cap" style="margin-top:5px"></span>
-        </a> <div class="dropdown-menu btnList ">
-        <div class="panel-group" role="tablist" id="BtnAccordian17">
-        <div class="panel panel-default"><div class="panel-heading"> 
-          <h4 class="disabled text-capitalize text-center menu-header">&nbsp;&nbsp;Quick Links</h4> 
-        </div> <div id="BtnBody21130">
-        <div class="panel-body"> 
-          <ul class="nav">
-            <li>
-              <a href="javascript:loadmydiv('examinations/StudentDA')" id="CNTXXX1" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;DA upload</a>
-            </li>
-            <li>
-              <a href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-dot-circle-o"></i>&nbsp;&nbsp;Course Page</a>
-            </li>
-            <li>
-              <a href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="CNTXXX3" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;Class Message</a>
-            </li>
-          </ul>
+  try {
+    var coursePage = document.createElement("div");
+    coursePage.className = "dropdown";
+    coursePage.innerHTML = `
+          <a class="btn btn-default btn-group-justified dropdown-toggle" type="button" style="margin-top:5px">
+            <span class="fa fa-graduation-cap" style="margin-top:5px"></span>
+          </a> <div class="dropdown-menu btnList ">
+          <div class="panel-group" role="tablist" id="BtnAccordian17">
+          <div class="panel panel-default"><div class="panel-heading"> 
+            <h4 class="disabled text-capitalize text-center menu-header">&nbsp;&nbsp;Quick Links</h4> 
+          </div> <div id="BtnBody21130">
+          <div class="panel-body"> 
+            <ul class="nav">
+              <li>
+                <a href="javascript:loadmydiv('examinations/StudentDA')" id="CNTXXX1" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;DA upload</a>
+              </li>
+              <li>
+                <a href="javascript:loadmydiv('academics/common/StudentCoursePage')" id="ACD0045" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-dot-circle-o"></i>&nbsp;&nbsp;Course Page</a>
+              </li>
+              <li>
+                <a href="javascript:loadmydiv('academics/common/StudentClassMessage')" id="CNTXXX3" class="btnItem" onclick="toggleButtonMenuItem()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-book"></i>&nbsp;&nbsp;Class Message</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </div></div></div>
-  <p style="text-align: center;background-color: #00EDFD">Quick IMP Links Up</p>`;
+      </div></div></div>
+    <p style="text-align: center;background-color: #00EDFD">Quick IMP Links Up</p>`;
 
-  var dropdown = document.getElementsByClassName(
-    "btn-group-vertical dropright"
-  );
+    var dropdown = document.getElementsByClassName(
+      "btn-group-vertical dropright"
+    );
 
-  dropdown[0].insertBefore(coursePage, dropdown[0].children[0]);
+    dropdown[0].insertBefore(coursePage, dropdown[0].children[0]);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function find_right_due(table_inner) {
