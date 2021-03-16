@@ -15,6 +15,11 @@ For a better experience, while using our Service, we may require you to provide 
 
 For debugging purposes, OAuth tokens may be logged to the browser console in some places.
 
+## Google Calendar
+When you give permission to your Google Calendar, it is being used to view and manage your calendar.
+
+ExVTOP may create new calendar events and may delete the events it has created.
+
 ## Service Providers
 
 Use of Google OAuth for authenticating Gmail accounts is done.
