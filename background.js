@@ -37,7 +37,7 @@ function calendar(date, event) {
   return new Promise((resolve) => {
     chrome.identity.getAuthToken({ interactive: true }, async function (token) {
       await fetch(
-        "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=<API_KEY>",
+        "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
         {
           method: "POST",
           headers: {
