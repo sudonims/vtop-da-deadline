@@ -90,8 +90,8 @@ async function assignments() {
             var parser = new DOMParser();
             var doc = parser.parseFromString(data, "text/html");
 
-            var table_inner = doc.getElementsByClassName("customTable")[1]
-              .children[1];
+            var table_inner =
+              doc.getElementsByClassName("customTable")[1].children[1];
 
             var due_date = await find_right_due(table_inner).then(
               (data) => data
@@ -148,7 +148,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       var DOM = document.body.outerHTML;
       chrome.runtime.sendMessage(
         {
-          sync: true,
+          message: "sync",
           DOM,
         },
         function () {

@@ -35,13 +35,13 @@ function calendar(date, event) {
   var dte = `${tmp[2]}-${map[tmp[1]]}-${tmp[0]}`;
   console.log(date, dte);
   return new Promise((resolve) => {
-    chrome.identity.getAuthToken({ interactive: true }, async function (token) {
+    chrome.storage.local.get(["token"], async function (token) {
       await fetch(
         "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
         {
           method: "POST",
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer " + token.token,
             Accept: "application/json",
           },
           body: JSON.stringify({
@@ -91,6 +91,7 @@ async function assignments(DOM) {
   try {
     var regNo = DOM.getElementById("authorizedIDX").value;
     var table = DOM.getElementsByClassName("customTable")[0].children[0];
+    calendar("03-Jun-2021", "blah");
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
       console.log(table.children[i].children[3].children);
@@ -118,8 +119,8 @@ async function assignments(DOM) {
           var parser = new DOMParser();
           var doc = parser.parseFromString(data, "text/html");
 
-          var table_inner = doc.getElementsByClassName("customTable")[1]
-            .children[1];
+          var table_inner =
+            doc.getElementsByClassName("customTable")[1].children[1];
 
           var due_date = await get_dates(table_inner)
             .then((data) => data)
@@ -149,9 +150,43 @@ chrome.runtime.onMessage.addListener(async function (
   sender,
   sendResponse
 ) {
-  if (request.sync) {
+  if (request.message === "sync") {
     var parser = new DOMParser();
     var DOM = parser.parseFromString(request.DOM, "text/html");
     assignments(DOM);
+  } else if (request.message === "login") {
+    var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
+      "114911086645-pdjbksm25jlcb30567a3utoduo1qq16s.apps.googleusercontent.com"
+    )}&response_type=${encodeURIComponent(
+      "token"
+    )}&redirect_uri=${encodeURIComponent(
+      "https://mmncmmodffimfglkgomlgbgpcgidkbij.chromiumapp.org/oauth"
+    )}&scope=${encodeURIComponent(
+      "https://www.googleapis.com/auth/calendar"
+    )}&state=${encodeURIComponent(
+      "meet" + Math.random().toString(36).substring(2, 15)
+    )}&prompt=${encodeURIComponent("consent")}`;
+    console.log(url);
+    chrome.identity.launchWebAuthFlow(
+      {
+        url: url,
+        interactive: true,
+      },
+      function (redirect_url) {
+        if (chrome.runtime.lastError) {
+          console.log(chrome.runtime.lastError);
+        } else {
+          console.log(redirect_url);
+          let id_token = redirect_url.substring(
+            redirect_url.indexOf("access_token=") + 13
+          );
+          id_token = id_token.substring(0, id_token.indexOf("&"));
+          console.log(id_token);
+          chrome.storage.local.set({ token: id_token }, () => {
+            console.log("set");
+          });
+        }
+      }
+    );
   }
 });
