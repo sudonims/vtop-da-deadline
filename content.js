@@ -1,4 +1,4 @@
-let chrome__ = chrome_ && browser ? browser : chrome;
+let chrome_ = chrome && browser ? browser : chrome;
 
 document.addEventListener("DOMContentLoaded", change_navbar);
 
@@ -103,7 +103,9 @@ async function assignments() {
               (due - now_) / (3600 * 24 * 1000) <= 2 ? "red" : "green";
             table.children[
               i
-            ].children[3].innerHTML += `<span style="display:inline; float:right; color:${color};">${due_date.due}</span>`;
+            ].children[3].innerHTML += `<span style="display:inline; float:right; color:${color};">${
+              due_date.due === "-" ? "07-Jun-2021" : due_date.due
+            }</span>`;
             table.children[i].children[3].children[0].appendChild(
               due_date.download
             );

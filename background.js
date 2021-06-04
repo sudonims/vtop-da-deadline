@@ -79,12 +79,15 @@ function get_dates(table_inner) {
     for (let i = 0; i < table_inner.children.length; i++) {
       var check = table_inner.children[i].children[6].children[0].innerHTML;
       if (
-        check === "" &&
-        table_inner.children[i].children[4].children[0].innerHTML !== "-"
+        check === "" //&&
+        // table_inner.children[i].children[4].children[0].innerHTML !== "-"
       ) {
         dates.push({
           name: table_inner.children[i].children[1].innerHTML,
-          date: table_inner.children[i].children[4].children[0].innerHTML,
+          date:
+            table_inner.children[i].children[4].children[0].innerHTML === "-"
+              ? "07-Jun-2021"
+              : table_inner.children[i].children[4].children[0].innerHTML,
         });
       }
     }
@@ -167,7 +170,7 @@ chrome_.runtime.onMessage.addListener(async function (
 
     console.log(redirect_uri);
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-      "<CLIENT_ID>.apps.googleusercontent.com"
+      "114911086645-pdjbksm25jlcb30567a3utoduo1qq16s.apps.googleusercontent.com"
     )}&response_type=${encodeURIComponent(
       "token"
     )}&redirect_uri=${encodeURIComponent(
