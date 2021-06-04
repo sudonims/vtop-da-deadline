@@ -1,15 +1,20 @@
 // Listens for request to URL https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment and notifies content.js
-chrome.webRequest.onCompleted.addListener(
+let chrome_ = chrome || browser; // Automatically chooses between chrome or firefox
+
+chrome_.webRequest.onCompleted.addListener(
   (details) => {
     if (
       details.url ===
       "https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment"
     ) {
       // This line adds the content script to the page as vtop uses history.push() to remove history.
-      chrome.tabs.executeScript(null, { file: "content.js" });
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { urlVisited: true });
-      });
+      chrome_.tabs.executeScript(null, { file: "content.js" });
+      chrome_.tabs.query(
+        { active: true, currentWindow: true },
+        function (tabs) {
+          chrome_.tabs.sendMessage(tabs[0].id, { urlVisited: true });
+        }
+      );
     }
   },
   { urls: ["https://vtop.vit.ac.in/vtop/*"] }
@@ -35,7 +40,7 @@ function calendar(date, event) {
   var dte = `${tmp[2]}-${map[tmp[1]]}-${tmp[0]}`;
   console.log(date, dte);
   return new Promise((resolve) => {
-    chrome.storage.local.get(["token"], async function (token) {
+    chrome_.storage.local.get(["token"], async function (token) {
       await fetch(
         "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
         {
@@ -91,7 +96,7 @@ async function assignments(DOM) {
   try {
     var regNo = DOM.getElementById("authorizedIDX").value;
     var table = DOM.getElementsByClassName("customTable")[0].children[0];
-    calendar("03-Jun-2021", "blah");
+    calendar("05-Jun-2021", "blah");
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
       console.log(table.children[i].children[3].children);
@@ -131,7 +136,7 @@ async function assignments(DOM) {
               await calendar(due.date, `${desc_str} ${due.name}`);
             });
 
-          chrome.notifications.create("Done", {
+          chrome_.notifications.create("Done", {
             type: "basic",
             iconUrl: "logo.png",
             title: "Sync done for" + classid,
@@ -145,7 +150,7 @@ async function assignments(DOM) {
   }
 }
 
-chrome.runtime.onMessage.addListener(async function (
+chrome_.runtime.onMessage.addListener(async function (
   request,
   sender,
   sendResponse
@@ -156,25 +161,25 @@ chrome.runtime.onMessage.addListener(async function (
     assignments(DOM);
   } else if (request.message === "login") {
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-      "114911086645-pdjbksm25jlcb30567a3utoduo1qq16s.apps.googleusercontent.com"
+      "<API_KEY>.apps.googleusercontent.com"
     )}&response_type=${encodeURIComponent(
       "token"
     )}&redirect_uri=${encodeURIComponent(
-      "https://mmncmmodffimfglkgomlgbgpcgidkbij.chromiumapp.org/oauth"
+      chrome_.identity.getRedirectURL()
     )}&scope=${encodeURIComponent(
       "https://www.googleapis.com/auth/calendar"
     )}&state=${encodeURIComponent(
       "meet" + Math.random().toString(36).substring(2, 15)
     )}&prompt=${encodeURIComponent("consent")}`;
     console.log(url);
-    chrome.identity.launchWebAuthFlow(
+    chrome_.identity.launchWebAuthFlow(
       {
         url: url,
         interactive: true,
       },
       function (redirect_url) {
-        if (chrome.runtime.lastError) {
-          console.log(chrome.runtime.lastError);
+        if (chrome_.runtime.lastError) {
+          console.log(chrome_.runtime.lastError);
         } else {
           console.log(redirect_url);
           let id_token = redirect_url.substring(
@@ -182,8 +187,15 @@ chrome.runtime.onMessage.addListener(async function (
           );
           id_token = id_token.substring(0, id_token.indexOf("&"));
           console.log(id_token);
-          chrome.storage.local.set({ token: id_token }, () => {
+          chrome_.storage.local.set({ token: id_token }, () => {
             console.log("set");
+            chrome_.notifications.create("Sign In", {
+              type: "basic",
+              iconUrl: "logo.png",
+              title: "Sign In",
+              message: "Sign In Success",
+            });
+            sendResponse("success");
           });
         }
       }
