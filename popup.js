@@ -1,5 +1,5 @@
+let chrome_ = chrome && browser ? browser : chrome;
 document.addEventListener("DOMContentLoaded", function () {
-  let chrome_ = chrome || browser;
   var pause = document.getElementById("pause");
   var resume = document.getElementById("resume");
   var signin = document.getElementById("signin");

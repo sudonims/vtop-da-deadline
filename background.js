@@ -1,5 +1,5 @@
 // Listens for request to URL https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment and notifies content.js
-let chrome_ = chrome || browser; // Automatically chooses between chrome or firefox
+let chrome_ = chrome && browser ? browser : chrome; // Automatically chooses between chrome or firefox
 
 chrome_.webRequest.onCompleted.addListener(
   (details) => {
@@ -160,12 +160,18 @@ chrome_.runtime.onMessage.addListener(async function (
     var DOM = parser.parseFromString(request.DOM, "text/html");
     assignments(DOM);
   } else if (request.message === "login") {
+    const redirect_uri =
+      chrome && browser
+        ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
+        : chrome_.identity.getRedirectURI();
+
+    console.log(redirect_uri);
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-      "<API_KEY>.apps.googleusercontent.com"
+      "<CLIENT_ID>.apps.googleusercontent.com"
     )}&response_type=${encodeURIComponent(
       "token"
     )}&redirect_uri=${encodeURIComponent(
-      chrome_.identity.getRedirectURL()
+      redirect_uri
     )}&scope=${encodeURIComponent(
       "https://www.googleapis.com/auth/calendar"
     )}&state=${encodeURIComponent(
