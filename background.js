@@ -1,5 +1,13 @@
 // Listens for request to URL https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment and notifies content.js
-let chrome_ = chrome && browser ? browser : chrome; // Automatically chooses between chrome or firefox
+// let chrome_ = chrome && browser ? browser : chrome; // Automatically chooses between chrome or firefox
+let chrome_;
+try {
+  chrome !== undefined && typeof browser !== undefined;
+  chrome_ = browser;
+} catch (e) {
+  console.log(e.message);
+  chrome_ = chrome;
+}
 
 chrome_.webRequest.onCompleted.addListener(
   (details) => {
@@ -80,7 +88,7 @@ function get_dates(table_inner) {
       var check = table_inner.children[i].children[6].children[0].innerHTML;
       if (
         check === "" //&&
-        // table_inner.children[i].children[4].children[0].innerHTML !== "-"
+        //table_inner.children[i].children[4].children[0].innerHTML !== "-"
       ) {
         dates.push({
           name: table_inner.children[i].children[1].innerHTML,
@@ -99,7 +107,7 @@ async function assignments(DOM) {
   try {
     var regNo = DOM.getElementById("authorizedIDX").value;
     var table = DOM.getElementsByClassName("customTable")[0].children[0];
-    calendar("05-Jun-2021", "blah");
+    // calendar("05-Jun-2021", "blah");
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
       console.log(table.children[i].children[3].children);
@@ -134,17 +142,17 @@ async function assignments(DOM) {
             .then((data) => data)
             .catch((err) => console.log(err));
 
-          due_date.length > 0 &&
+          if (due_date.length > 0) {
             due_date.forEach(async (due) => {
               await calendar(due.date, `${desc_str} ${due.name}`);
             });
-
-          chrome_.notifications.create("Done", {
-            type: "basic",
-            iconUrl: "logo.png",
-            title: "Sync done for" + classid,
-            message: classid,
-          });
+            chrome_.notifications.create("Done", {
+              type: "basic",
+              iconUrl: "logo.png",
+              title: "Sync done for " + classid,
+              message: desc_str,
+            });
+          }
         })
         .catch((err) => console.log(err));
     }
@@ -163,14 +171,24 @@ chrome_.runtime.onMessage.addListener(async function (
     var DOM = parser.parseFromString(request.DOM, "text/html");
     assignments(DOM);
   } else if (request.message === "login") {
-    const redirect_uri =
-      chrome && browser
-        ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
-        : chrome_.identity.getRedirectURI();
+    let redirect_uri;
+    try {
+      redirect_uri =
+        chrome && browser
+          ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
+          : chrome_.identity.getRedirectURL();
+    } catch (e) {
+      console.log(e.message);
+      redirect_uri = chrome_.identity.getRedirectURL();
+    }
+
+    // chrome && browser
+    //   ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
+    //   : chrome_.identity.getRedirectURL();
 
     console.log(redirect_uri);
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-      "114911086645-pdjbksm25jlcb30567a3utoduo1qq16s.apps.googleusercontent.com"
+      "<CLIENT_ID>.apps.googleusercontent.com"
     )}&response_type=${encodeURIComponent(
       "token"
     )}&redirect_uri=${encodeURIComponent(
@@ -178,7 +196,7 @@ chrome_.runtime.onMessage.addListener(async function (
     )}&scope=${encodeURIComponent(
       "https://www.googleapis.com/auth/calendar"
     )}&state=${encodeURIComponent(
-      "meet" + Math.random().toString(36).substring(2, 15)
+      "cal" + Math.random().toString(36).substring(2, 15)
     )}&prompt=${encodeURIComponent("consent")}`;
     console.log(url);
     chrome_.identity.launchWebAuthFlow(

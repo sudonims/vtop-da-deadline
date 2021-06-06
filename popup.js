@@ -1,4 +1,12 @@
-let chrome_ = chrome && browser ? browser : chrome;
+let chrome_;
+try {
+  chrome !== undefined && browser !== undefined;
+  chrome_ = browser;
+} catch (e) {
+  console.log(e.message);
+  chrome_ = chrome;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   var pause = document.getElementById("pause");
   var resume = document.getElementById("resume");

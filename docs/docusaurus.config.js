@@ -6,7 +6,7 @@ module.exports = {
   baseUrl: "/vtop-da-deadline/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/logo.120x120.png",
   organizationName: "sudonims", // Usually your GitHub org/user name.
   projectName: "vtop-da-deadline", // Usually your repo name.
   themeConfig: {
@@ -14,7 +14,7 @@ module.exports = {
       title: "Extended VTOP",
       logo: {
         alt: "My Site Logo",
-        src: "img/logo.svg",
+        src: "img/logo.120x120.png",
       },
       items: [
         {
