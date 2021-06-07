@@ -1,26 +1,27 @@
 // Listens for request to URL https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment and notifies content.js
-// let chrome_ = chrome && browser ? browser : chrome; // Automatically chooses between chrome or firefox
-let chrome_;
-try {
-  chrome !== undefined && typeof browser !== undefined;
-  chrome_ = browser;
-} catch (e) {
-  console.log(e.message);
-  chrome_ = chrome;
+// let chrome_() = chrome && browser ? browser : chrome; // Automatically chooses between chrome or firefox
+function chrome_() {
+  try {
+    chrome !== undefined && browser !== undefined;
+    return browser;
+  } catch (e) {
+    console.log(e.message);
+    return chrome;
+  }
 }
 
-chrome_.webRequest.onCompleted.addListener(
+chrome_().webRequest.onCompleted.addListener(
   (details) => {
     if (
       details.url ===
       "https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment"
     ) {
       // This line adds the content script to the page as vtop uses history.push() to remove history.
-      chrome_.tabs.executeScript(null, { file: "content.js" });
-      chrome_.tabs.query(
+      chrome_().tabs.executeScript(null, { file: "content.js" });
+      chrome_().tabs.query(
         { active: true, currentWindow: true },
         function (tabs) {
-          chrome_.tabs.sendMessage(tabs[0].id, { urlVisited: true });
+          chrome_().tabs.sendMessage(tabs[0].id, { urlVisited: true });
         }
       );
     }
@@ -48,7 +49,7 @@ function calendar(date, event) {
   var dte = `${tmp[2]}-${map[tmp[1]]}-${tmp[0]}`;
   console.log(date, dte);
   return new Promise((resolve) => {
-    chrome_.storage.local.get(["token"], async function (token) {
+    chrome_().storage.local.get(["token"], async function (token) {
       await fetch(
         "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
         {
@@ -87,15 +88,12 @@ function get_dates(table_inner) {
     for (let i = 0; i < table_inner.children.length; i++) {
       var check = table_inner.children[i].children[6].children[0].innerHTML;
       if (
-        check === "" //&&
-        //table_inner.children[i].children[4].children[0].innerHTML !== "-"
+        check === "" &&
+        table_inner.children[i].children[4].children[0].innerHTML !== "-"
       ) {
         dates.push({
           name: table_inner.children[i].children[1].innerHTML,
-          date:
-            table_inner.children[i].children[4].children[0].innerHTML === "-"
-              ? "07-Jun-2021"
-              : table_inner.children[i].children[4].children[0].innerHTML,
+          date: table_inner.children[i].children[4].children[0].innerHTML,
         });
       }
     }
@@ -146,7 +144,7 @@ async function assignments(DOM) {
             due_date.forEach(async (due) => {
               await calendar(due.date, `${desc_str} ${due.name}`);
             });
-            chrome_.notifications.create("Done", {
+            chrome_().notifications.create("Done", {
               type: "basic",
               iconUrl: "logo.png",
               title: "Sync done for " + classid,
@@ -161,7 +159,7 @@ async function assignments(DOM) {
   }
 }
 
-chrome_.runtime.onMessage.addListener(async function (
+chrome_().runtime.onMessage.addListener(async function (
   request,
   sender,
   sendResponse
@@ -171,20 +169,20 @@ chrome_.runtime.onMessage.addListener(async function (
     var DOM = parser.parseFromString(request.DOM, "text/html");
     assignments(DOM);
   } else if (request.message === "login") {
-    let redirect_uri;
+    var redirect_uri = "";
     try {
       redirect_uri =
         chrome && browser
           ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
-          : chrome_.identity.getRedirectURL();
+          : chrome_().identity.getRedirectURL();
     } catch (e) {
       console.log(e.message);
-      redirect_uri = chrome_.identity.getRedirectURL();
+      redirect_uri = chrome_().identity.getRedirectURL();
     }
 
     // chrome && browser
     //   ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
-    //   : chrome_.identity.getRedirectURL();
+    //   : chrome_().identity.getRedirectURL();
 
     console.log(redirect_uri);
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
@@ -199,14 +197,14 @@ chrome_.runtime.onMessage.addListener(async function (
       "cal" + Math.random().toString(36).substring(2, 15)
     )}&prompt=${encodeURIComponent("consent")}`;
     console.log(url);
-    chrome_.identity.launchWebAuthFlow(
+    chrome_().identity.launchWebAuthFlow(
       {
         url: url,
         interactive: true,
       },
       function (redirect_url) {
-        if (chrome_.runtime.lastError) {
-          console.log(chrome_.runtime.lastError);
+        if (chrome_().runtime.lastError) {
+          console.log(chrome_().runtime.lastError);
         } else {
           console.log(redirect_url);
           let id_token = redirect_url.substring(
@@ -214,9 +212,9 @@ chrome_.runtime.onMessage.addListener(async function (
           );
           id_token = id_token.substring(0, id_token.indexOf("&"));
           console.log(id_token);
-          chrome_.storage.local.set({ token: id_token }, () => {
+          chrome_().storage.local.set({ token: id_token }, () => {
             console.log("set");
-            chrome_.notifications.create("Sign In", {
+            chrome_().notifications.create("Sign In", {
               type: "basic",
               iconUrl: "logo.png",
               title: "Sign In",

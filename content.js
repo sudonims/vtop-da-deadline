@@ -1,12 +1,13 @@
 // let chrome_ = chrome && browser ? browser : chrome;
 
-let chrome_;
-try {
-  chrome !== undefined && browser !== undefined;
-  chrome_ = browser;
-} catch (e) {
-  console.log(e.message);
-  chrome_ = chrome;
+function chrome_() {
+  try {
+    chrome !== undefined && browser !== undefined;
+    return browser;
+  } catch (e) {
+    console.log(e.message);
+    return chrome;
+  }
 }
 
 document.addEventListener("DOMContentLoaded", change_navbar);
@@ -139,10 +140,14 @@ function sendingResponse() {
 // Message passing between background and content
 // This removes the need for clicking in body to see due dates as it checks URL requests to find whether user has visited DA page.
 var loaded = false;
-chrome_.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome_().runtime.onMessage.addListener(function (
+  request,
+  sender,
+  sendResponse
+) {
   if (request.urlVisited && !loaded) {
     loaded = true;
-    chrome_.storage.local.get(["pause"], function (data) {
+    chrome_().storage.local.get(["pause"], function (data) {
       if (!data.pause) {
         assignments();
       }
@@ -159,7 +164,7 @@ chrome_.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     btn.addEventListener("click", function () {
       var DOM = document.body.outerHTML;
-      chrome_.runtime.sendMessage(
+      chrome_().runtime.sendMessage(
         {
           message: "sync",
           DOM,
