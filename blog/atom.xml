@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://sudonims.tech/exvtop/blog</id>
+    <id>https://exvtop.sudonims.tech/blog</id>
     <title>ExVTOP Blog</title>
     <updated>2015-10-25T23:29:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://sudonims.tech/exvtop/blog"/>
+    <link rel="alternate" href="https://exvtop.sudonims.tech/blog"/>
     <subtitle>ExVTOP Blog</subtitle>
-    <icon>https://sudonims.tech/exvtop/img/logo.120x120.png</icon>
+    <icon>https://exvtop.sudonims.tech/img/logo.120x120.png</icon>
 </feed>
