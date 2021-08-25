@@ -2,8 +2,8 @@
 module.exports = {
   title: "ExVTOP",
   // tagline: "",
-  url: "https://sudonims.tech/exvtop",
-  baseUrl: "/vtop-da-deadline/",
+  url: "https://exvtop.sudonims.tech/",
+  baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/logo.120x120.png",

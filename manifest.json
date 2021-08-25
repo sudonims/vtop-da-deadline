@@ -1,8 +1,7 @@
 {
-  "author": "sudonims",
   "manifest_version": 2,
   "name": "ExVTOP (Extended VTOP)",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "Easily see DA",
   "content_scripts": [
     {

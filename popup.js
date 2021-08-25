@@ -24,17 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // chrome_().identity.getAuthToken({ interactive: true }, async function (token) {
-  //   if (token) {
-  //     console.log(token);
-  //     signin.style.display = "none";
-  //     signout.style.display = "visible";
-  //   } else {
-  //     signin.style.display = "visible";
-  //     signout.style.display = "none";
-  //   }
-  // });
-
   pause.addEventListener("click", function () {
     chrome_().storage.local.set({ pause: true }, function () {
       chrome_().notifications.create("Paused", {
@@ -63,42 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (response === "success") {
       }
     });
-
-    // chrome_().tabs.create({ url: "index.html" });
-
-    // chrome_().identity.getAuthToken({ interactive: true }, async function (token) {
-    //   if (!chrome_().runtime.lastError) {
-    //     alert1(token);
-    //     console.log(token);
-    //     chrome_().notifications.create("Sign In", {
-    //       type: "basic",
-    //       iconUrl: "logo.png",
-    //       title: "Signed In",
-    //       message: "Signed In",
-    //     });
-    //   } else {
-    //     if (
-    //       chrome_().runtime.lastError.message ===
-    //       "The user turned off browser signin"
-    //     ) {
-    //       chrome_().notifications.create("User Sign In", {
-    //         type: "basic",
-    //         iconUrl: "logo.png",
-    //         title: "Can't sign in",
-    //         message:
-    //           "User turned off browser signin, turn it on in settings. Google for more info",
-    //       });
-    //     } else {
-    //       console.log(chrome_().runtime.lastError.message);
-    //       chrome_().notifications.create("Error", {
-    //         type: "basic",
-    //         iconUrl: "logo.png",
-    //         title: "Can't sign in",
-    //         message: "Error Occured. Send logs to github",
-    //       });
-    //     }
-    //   }
-    // });
   });
 
   signout.addEventListener("click", function () {

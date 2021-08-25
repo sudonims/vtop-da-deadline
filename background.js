@@ -51,7 +51,7 @@ function calendar(date, event) {
   return new Promise((resolve) => {
     chrome_().storage.local.get(["token"], async function (token) {
       await fetch(
-        "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=AIzaSyDPdTOzaUqLP_c08kWOu4QWSSyKEgnAwsM",
+        "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=<API_KEY>",
         {
           method: "POST",
           headers: {
