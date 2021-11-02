@@ -13,8 +13,7 @@ function chrome_() {
 chrome_().webRequest.onCompleted.addListener(
   (details) => {
     if (
-      details.url ===
-      "https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment"
+      details.url === "https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment" || details.url === "https://vtopcc.vit.ac.in/vtop/examinations/doDigitalAssignment"
     ) {
       // This line adds the content script to the page as vtop uses history.push() to remove history.
       chrome_().tabs.executeScript(null, { file: "content.js" });
@@ -26,7 +25,9 @@ chrome_().webRequest.onCompleted.addListener(
       );
     }
   },
-  { urls: ["https://vtop.vit.ac.in/vtop/*"] }
+  { urls:
+     ["https://vtop.vit.ac.in/vtop/*", "https://vtopcc.vit.ac.in/vtop/*"]
+    }
 );
 
 function calendar(date, event) {
@@ -119,6 +120,7 @@ async function assignments(DOM) {
       console.log(desc_str);
       await fetch(
         "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",
+        "https://vtopcc.vit.ac.in/vtop/examinations/processDigitalAssignment",
         {
           method: "POST",
           headers: {
