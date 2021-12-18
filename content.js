@@ -87,6 +87,7 @@ async function assignments() {
       if (table.children[i].children[3].children.length != 1) {
         await fetch(
           "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",
+          "https://vtopcc.vit.ac.in/vtop/examinations/processDigitalAssignment",
           {
             method: "POST",
             headers: {
