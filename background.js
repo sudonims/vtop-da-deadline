@@ -10,12 +10,18 @@ function chrome_() {
   }
 }
 
+async function getVtopUri() {
+  return new Promise((resolve) => {
+    chrome_().storage.local.get(["VTOP_URI"], async function (data) {
+      resolve(data.VTOP_URI);
+    });
+  });
+}
+
 chrome_().webRequest.onCompleted.addListener(
-  (details) => {
-    if (
-      details.url ===
-      "https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment"
-    ) {
+  async (details) => {
+    const URI = await getVtopUri().then((uri) => uri);
+    if (details.url === `${URI}/vtop/examinations/doDigitalAssignment`) {
       // This line adds the content script to the page as vtop uses history.push() to remove history.
       chrome_().tabs.executeScript(null, { file: "content.js" });
       chrome_().tabs.query(
@@ -26,7 +32,7 @@ chrome_().webRequest.onCompleted.addListener(
       );
     }
   },
-  { urls: ["https://vtop.vit.ac.in/vtop/*"] }
+  { urls: ["https://vtop.vit.ac.in/vtop/*", "https://vtopcc.vit.ac.in/vtop/*"] }
 );
 
 function calendar(date, event) {
@@ -117,17 +123,16 @@ async function assignments(DOM) {
         " " +
         table.children[i].children[4].innerHTML;
       console.log(desc_str);
-      await fetch(
-        "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-Requested-With": "XMLHttpRequest",
-          },
-          body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}`,
-        }
-      )
+      const URI = await getVtopUri().then((uri) => uri);
+
+      await fetch(`${URI}/vtop/examinations/processDigitalAssignment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}`,
+      })
         .then((res) => res.text())
         .then(async (data) => {
           var parser = new DOMParser();
@@ -186,7 +191,7 @@ chrome_().runtime.onMessage.addListener(async function (
 
     console.log(redirect_uri);
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-      "<CLIENT_ID>.apps.googleusercontent.com"
+      "<API_KEY>.apps.googleusercontent.com"
     )}&response_type=${encodeURIComponent(
       "token"
     )}&redirect_uri=${encodeURIComponent(

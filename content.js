@@ -1,5 +1,3 @@
-// let chrome_ = chrome && browser ? browser : chrome;
-
 function chrome_() {
   try {
     chrome !== undefined && browser !== undefined;
@@ -9,6 +7,10 @@ function chrome_() {
     return chrome;
   }
 }
+
+chrome_().storage.local.set({ VTOP_URI: window.location.origin }, function () {
+  console.log("SET THE URL");
+});
 
 document.addEventListener("DOMContentLoaded", change_navbar);
 
@@ -86,7 +88,7 @@ async function assignments() {
       var classid = table.children[i].children[1].innerHTML;
       if (table.children[i].children[3].children.length != 1) {
         await fetch(
-          "https://vtop.vit.ac.in/vtop/examinations/processDigitalAssignment",
+          `${window.location.origin}/vtop/examinations/processDigitalAssignment`,
           {
             method: "POST",
             headers: {
@@ -171,8 +173,6 @@ chrome_().runtime.onMessage.addListener(function (
           console.log("Syncing");
         }
       );
-
-      // alert("Still in development. Coming soon. Check GitHub repo for more");
     });
   }
 
