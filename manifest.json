@@ -1,14 +1,12 @@
 {
   "manifest_version": 2,
   "name": "ExVTOP (Extended VTOP)",
-  "version": "2.5.5",
+  "version": "3.0.0",
   "description": "Easily see DA",
   "content_scripts": [
     {
       "run_at": "document_start",
-      "js": [
-        "content.js"
-      ],
+      "js": ["content.js"],
       "matches": [
         "https://vtop.vit.ac.in/vtop/*",
         "https://vtopcc.vit.ac.in/vtop/*"
@@ -26,9 +24,7 @@
     "activeTab"
   ],
   "background": {
-    "scripts": [
-      "background.js"
-    ],
+    "scripts": ["background.js"],
     "persistent": true
   },
   "browser_action": {
