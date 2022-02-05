@@ -1,4 +1,5 @@
 // Listens for request to URL https://vtop.vit.ac.in/vtop/examinations/doDigitalAssignment and notifies content.js
+
 // let chrome_() = chrome && browser ? browser : chrome; // Automatically chooses between chrome or firefox
 function chrome_() {
   try {
@@ -53,8 +54,7 @@ function calendar(date, event) {
   };
   var tmp = date.split("-");
   var dte = `${tmp[2]}-${map[tmp[1]]}-${tmp[0]}`;
-  console.log(date, dte);
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     chrome_().storage.local.get(["token"], async function (token) {
       await fetch(
         "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all&sendNotifications=true&alt=json&key=<API_KEY>",
@@ -83,6 +83,10 @@ function calendar(date, event) {
         .then((data) => {
           resolve();
           console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject("Error");
         });
     });
   });
@@ -185,13 +189,9 @@ chrome_().runtime.onMessage.addListener(async function (
       redirect_uri = chrome_().identity.getRedirectURL();
     }
 
-    // chrome && browser
-    //   ? "http://127.0.0.1/mozoauth2/acd05041bb94a471df45afa67715fcbc49508039/"
-    //   : chrome_().identity.getRedirectURL();
-
     console.log(redirect_uri);
     var url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-      "<API_KEY>.apps.googleusercontent.com"
+      "<CLIENT_ID>.apps.googleusercontent.com"
     )}&response_type=${encodeURIComponent(
       "token"
     )}&redirect_uri=${encodeURIComponent(
