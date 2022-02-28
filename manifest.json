@@ -1,36 +1,36 @@
 {
-    "manifest_version": 2,
-    "name": "ExVTOP (Extended VTOP)",
-    "version": "4.0.0",
-    "description": "Easily see DA",
-    "content_scripts": [
-        {
-            "run_at": "document_start",
-            "js": ["content.js"],
-            "matches": [
-                "https://vtop.vit.ac.in/vtop/*",
-                "https://vtopcc.vit.ac.in/vtop/*"
-            ]
-        }
-    ],
-    "permissions": [
-        "webRequest",
-        "tabs",
+  "manifest_version": 2,
+  "name": "ExVTOP (Extended VTOP)",
+  "version": "4.0.0",
+  "description": "Easily see DA",
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "js": ["content.js"],
+      "matches": [
         "https://vtop.vit.ac.in/vtop/*",
-        "https://vtopcc.vit.ac.in/vtop/*",
-        "storage",
-        "notifications",
-        "identity",
-        "activeTab"
-    ],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": true
-    },
-    "browser_action": {
-        "default_popup": "popup.html"
-    },
-    "icons": {
-        "128": "calendar.png"
+        "https://vtopcc.vit.ac.in/vtop/*"
+      ]
     }
+  ],
+  "permissions": [
+    "webRequest",
+    "tabs",
+    "https://vtop.vit.ac.in/vtop/*",
+    "https://vtopcc.vit.ac.in/vtop/*",
+    "storage",
+    "notifications",
+    "identity",
+    "activeTab"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "logo.png"
+  }
 }

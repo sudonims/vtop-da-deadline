@@ -1,209 +1,203 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="popup.js"></script>
-        <style>
-            body {
-                min-width: 200px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-                    "Helvetica Neue", sans-serif;
-                background: #fcfcfc;
-            }
-            /* button {
+  <head>
+    <script src="popup.js"></script>
+    <style>
+      body {
+        min-width: 200px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+          sans-serif;
+        background: #fcfcfc;
+      }
+      /* button {
                 background-color: #4caf50;
                 color: white;
                 padding: 14px 20px;
                 margin: 8px 0;
                 border: none;
                 width: max-content;
-                cursor: pointer;
+                cursor: pointer; 
                 width: 100%;
             } */
-            .title {
-                display: flex;
-                font-size: 16px;
-                align-items: center;
-                font-weight: 500;
-                justify-content: space-around;
-                border-bottom: 1.5px solid #aaa;
-            }
-            small {
-                line-height: 0.8;
+      .title {
+        display: flex;
+        font-size: 16px;
+        align-items: center;
+        font-weight: 500;
+        justify-content: space-around;
+        border-bottom: 1.5px solid #aaa;
+      }
+      small {
+        line-height: 0.8;
 
-                font-size: 12px;
-            }
-            #signin,
-            #signout {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                font-family: inherit;
-                justify-content: space-around;
-                color: #535353;
-                font-size: 13px;
-                font-weight: 500;
-                margin: 8px auto;
-                cursor: pointer;
-                background-color: white;
-                border-radius: 32px;
-                border: none;
-                transition: all 0.2s ease-in-out;
-                padding: 6px 10px;
-                box-shadow: -1px -1px 0 rgba(0, 0, 0, 0.05),
-                    0 1px 1px rgba(0, 0, 0, 0.25);
-            }
-            #signin:hover,
-            #signout:hover {
-                box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04),
-                    0 2px 4px rgba(0, 0, 0, 0.25);
-            }
-            .action {
-                display: flex;
-                gap: 4px;
-                font-family: inherit;
+        font-size: 12px;
+      }
+      #signin,
+      #signout {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: inherit;
+        justify-content: space-around;
+        color: #535353;
+        font-size: 13px;
+        font-weight: 500;
+        margin: 8px auto;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 32px;
+        border: none;
+        transition: all 0.2s ease-in-out;
+        padding: 6px 10px;
+        box-shadow: -1px -1px 0 rgba(0, 0, 0, 0.05),
+          0 1px 1px rgba(0, 0, 0, 0.25);
+      }
+      #signin:hover,
+      #signout:hover {
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+      }
+      .action {
+        display: flex;
+        gap: 4px;
+        font-family: inherit;
 
-                color: #ffffff;
-                font-size: 13px;
-                padding: 5px 10px;
-                font-weight: 500;
-                margin: 8px auto;
-                cursor: pointer;
-                background-color: rgb(45, 69, 151);
-                border: none;
-                border-radius: 32px;
-                box-shadow: -1px -1px 0 rgba(0, 0, 0, 0.05),
-                    0 1px 1px rgba(0, 0, 0, 0.25);
-            }
-            .github {
-                transform: translateX(30%);
-                display: flex;
-                cursor: pointer;
-                gap: 4px;
-                text-decoration: none;
-                font-size: 14px;
-                align-items: center;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="title">
-            <img
-                src="calendar.png"
-                alt="Calendar Icon"
-                width="36"
-                height="36"
+        color: #ffffff;
+        font-size: 13px;
+        padding: 5px 10px;
+        font-weight: 500;
+        margin: 8px auto;
+        cursor: pointer;
+        background-color: rgb(45, 69, 151);
+        border: none;
+        border-radius: 32px;
+        box-shadow: -1px -1px 0 rgba(0, 0, 0, 0.05),
+          0 1px 1px rgba(0, 0, 0, 0.25);
+      }
+      .github {
+        transform: translateX(30%);
+        display: flex;
+        cursor: pointer;
+        gap: 4px;
+        text-decoration: none;
+        font-size: 14px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">
+      <img src="logo.png" alt="Calendar Icon" width="36" height="36" />
+      ExVTOP
+    </div>
+
+    <div id="loginContainer">
+      <small>Sign in to sync your assignments with your calendar. </small>
+      <button id="signin">
+        <!-- Google Logo SVG -->
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+            <path
+              fill="#4285F4"
+              d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
             />
-            ExVTOP
-        </div>
-
-        <div id="loginContainer">
-            <small>Sign in to sync your assignments with your calendar. </small>
-            <button id="signin">
-                <!-- Google Logo SVG -->
-                <svg
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-                        <path
-                            fill="#4285F4"
-                            d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
-                        />
-                        <path
-                            fill="#34A853"
-                            d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
-                        />
-                        <path
-                            fill="#FBBC05"
-                            d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
-                        />
-                        <path
-                            fill="#EA4335"
-                            d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
-                        />
-                    </g>
-                </svg>
-                <span> Sign in with Google</span>
-            </button>
-        </div>
-        <div id="logoutContainer">
-            <small
-                >Signing out will not remove calendar events that have already
-                been synced.</small
-            >
-            <button id="signout">
-                <!-- Google Logo SVG -->
-                <svg
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-                        <path
-                            fill="#4285F4"
-                            d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
-                        />
-                        <path
-                            fill="#34A853"
-                            d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
-                        />
-                        <path
-                            fill="#FBBC05"
-                            d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
-                        />
-                        <path
-                            fill="#EA4335"
-                            d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
-                        />
-                    </g>
-                </svg>
-                <span>Sign out</span>
-            </button>
-        </div>
-        <small>
-            You can always pause/resume extension by clicking the button below.
-        </small>
-        <button id="pause" class="action" style="background-color: #b83030">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-            >
-                <path
-                    d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"
-                />
-            </svg>
-            <span> Pause Extension </span>
-        </button>
-        <button id="resume" class="action">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-play-fill"
-                viewBox="0 0 16 16"
-            >
-                <path
-                    d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
-                />
-            </svg>
-            <span> Resume extension</span>
-        </button>
-        <span> Like it? Consider contributing to the project on GitHub.</span>
-        <div class="github">
-            <img
-                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                alt="GitHub"
-                width="32"
+            <path
+              fill="#34A853"
+              d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
             />
-            GitHub
-        </div>
-    </body>
+            <path
+              fill="#FBBC05"
+              d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
+            />
+            <path
+              fill="#EA4335"
+              d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
+            />
+          </g>
+        </svg>
+        <span> Sign in with Google</span>
+      </button>
+    </div>
+    <div id="logoutContainer">
+      <small
+        >Signing out will not remove calendar events that have already been
+        synced.</small
+      >
+      <button id="signout">
+        <!-- Google Logo SVG -->
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+            <path
+              fill="#4285F4"
+              d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
+            />
+            <path
+              fill="#34A853"
+              d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
+            />
+            <path
+              fill="#EA4335"
+              d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
+            />
+          </g>
+        </svg>
+        <span>Sign out</span>
+      </button>
+    </div>
+    <small>
+      You can always pause/resume extension by clicking the button below.
+    </small>
+    <button id="pause" class="action" style="background-color: #b83030">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"
+        />
+      </svg>
+      <span> Pause Extension </span>
+    </button>
+    <button id="resume" class="action">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-play-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+        />
+      </svg>
+      <span> Resume extension</span>
+    </button>
+    <span> Like it? Consider contributing to the project on GitHub.</span>
+    <div class="github">
+      <img
+        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        alt="GitHub"
+        width="32"
+      />
+      GitHub
+    </div>
+  </body>
 </html>
