@@ -18,7 +18,7 @@ jobs:
       - name: Deploy
         run: |
           CHK="Deploy:"
-          if [[ "$MSG" == *"$CHK"* ]]; then
+          if [[ "$MSG" != *"$CHK"* ]]; then
             exit
           fi
           sudo npm install -g yarn
