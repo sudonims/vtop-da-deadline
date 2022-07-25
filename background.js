@@ -135,7 +135,7 @@ async function assignments(DOM) {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           "X-Requested-With": "XMLHttpRequest",
         },
-        body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}`,
+        body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}&_csrf=6a202fe2-fb6c-4012-8697-ae64c4ce0c5a`,
       })
         .then((res) => res.text())
         .then(async (data) => {
