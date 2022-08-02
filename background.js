@@ -115,6 +115,10 @@ async function assignments(DOM) {
   try {
     var regNo = DOM.getElementById("authorizedIDX").value;
     var table = DOM.getElementsByClassName("customTable")[0].children[0];
+
+    var scripts = DOM.getElementsByTagName("noscript");
+    var csrf = scripts[0].nextElementSibling.textContent.split('"')[3];
+
     // calendar("05-Jun-2021", "blah");
     for (let i = 1; i < table.children.length; i++) {
       var classid = table.children[i].children[1].innerHTML;
@@ -135,7 +139,7 @@ async function assignments(DOM) {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           "X-Requested-With": "XMLHttpRequest",
         },
-        body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}&_csrf=6a202fe2-fb6c-4012-8697-ae64c4ce0c5a`,
+        body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}&_csrf=${csrf}`,
       })
         .then((res) => res.text())
         .then(async (data) => {

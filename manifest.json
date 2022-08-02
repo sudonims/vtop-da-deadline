@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ExVTOP (Extended VTOP)",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Easily see DA",
   "content_scripts": [
     {

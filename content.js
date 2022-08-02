@@ -87,6 +87,9 @@ async function assignments() {
     var table = document.getElementsByClassName("customTable")[0].children[0];
     var now_ = new Date().getTime();
     var dis = document.getElementsByClassName("icon-button");
+
+    var scripts = document.getElementsByTagName("noscript");
+    var csrf = scripts[0].nextElementSibling.textContent.split('"')[3];
     for (let i = 0; i < dis.length; i++) {
       dis[i].disabled = true;
     }
@@ -102,7 +105,7 @@ async function assignments() {
                 "application/x-www-form-urlencoded; charset=UTF-8",
               "X-Requested-With": "XMLHttpRequest",
             },
-            body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}&_csrf=6a202fe2-fb6c-4012-8697-ae64c4ce0c5a`,
+            body: `authorizedID=${regNo}&x=${new Date().toGMTString()}&classId=${classid}&_csrf=${csrf}`,
           }
         )
           .then((res) => res.text())
